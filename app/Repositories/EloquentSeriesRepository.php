@@ -3,12 +3,13 @@
 namespace App\Repositories;
 
 use App\Http\Requests\SeriesFormRequest;
+use App\Interfaces\SeriesRepository;
 use App\Models\Episode;
 use App\Models\Season;
 use App\Models\Series;
 use Illuminate\Support\Facades\DB;
 
-class SeriesRepository
+class EloquentSeriesRepository implements SeriesRepository
 {
     /**
      * @param SeriesFormRequest $request
