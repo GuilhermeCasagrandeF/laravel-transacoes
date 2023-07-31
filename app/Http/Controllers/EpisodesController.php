@@ -10,7 +10,10 @@ class EpisodesController
 {
     public function index(Season $season)
     {
-        return view('episodes.index', ['episodes' => $season->episodes()->orderBy('id')->get()]);
+        return view('episodes.index', [
+            'episodes' => $season->episodes()->orderBy('id')->get(),
+            'mensagemSucesso' => session('mensagem.sucesso')
+        ]);
     }
 
     public function update(Request $request, Season $season)
@@ -20,8 +23,8 @@ class EpisodesController
             $episode->watched = in_array($episode->id, $watechedEpisodes);
         });
 
-        $season->push();
+        $season->push(); //Atualiza o objeto e todas as suas relações
 
-        return to_route('episodes.index', $season->id);
+        return to_route('episodes.index', $season->id)->with(['mensagem.sucesso' => 'Salvo com sucesso!']);
     }
 }
